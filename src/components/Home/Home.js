@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Events from '../Events/Events';
 import Header from '../Header/Header';
+// import fakeEvents from '../fakeEvents.json';
+
 
 const Home = () => {
+    // const [events, setEvents] = useState([]);
+    // useEffect(() => {
+    //     setEvents(fakeEvents)
+    // }, []);
     return (
         <div>
             <Header></Header>
             <Events></Events>
-            <h1>This is Home</h1>
+            {/* {
+                events.map(event => <Events event={event}></Events>)
+            } */}
         </div>
     );
 };

@@ -10,11 +10,11 @@ const Header = () => {
             <Navbar bg="none" variant="light">
                 <Navbar.Brand><Link to="/home"><img src={logo} alt="" /></Link></Navbar.Brand>
                 <Nav className="ml-auto header-nav">
-                    <Nav.Link><Link to="/home">Home</Link></Nav.Link>
-                    <Nav.Link><Link to="">Donation</Link></Nav.Link>
-                    <Nav.Link><Link to="">Events</Link></Nav.Link>
-                    <Nav.Link><Link to="">Blogs</Link></Nav.Link>
-                    <Button className="mr-2" variant="outline-primary">Search</Button>
+                    <Link to='/link'><Nav.Link>Home</Nav.Link></Link>
+                    <Nav.Link>Donation</Nav.Link>
+                    <Nav.Link><Link to="/events">Events</Link></Nav.Link>
+                    <Nav.Link>Blogs</Nav.Link>
+                    <Button className="mr-2" variant="outline-primary">Register</Button>
                     <Button variant="outline-info">Admin</Button>
                 </Nav>
             </Navbar>
