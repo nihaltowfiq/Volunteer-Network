@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button, Container, Row } from 'react-bootstrap';
 import logo from '../../logos/logo.png';
 import googleIcon from '../../logos/google.png';
@@ -7,11 +7,12 @@ import * as firebase from "firebase/app";
 import "firebase/auth";
 import firebaseConfig from './firebase.config';
 import { UserContext } from '../../App';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { Link, useHistory, useLocation, useParams } from 'react-router-dom';
 
 const Login = () => {
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
 
+    
     const history = useHistory();
     const location = useLocation();
 
@@ -24,14 +25,14 @@ const Login = () => {
         var provider = new firebase.auth.GoogleAuthProvider();
         firebase.auth().signInWithPopup(provider)
             .then(result => {
-                var { displayName, email } = result.user;
+                const { displayName, email } = result.user;
                 const signedInUser = { name: displayName, email };
                 setLoggedInUser(signedInUser);
                 history.replace(from);
-                console.log(signedInUser);
             })
             .catch(error => {
-                var errorMessage = error.message;
+                const errorMessage = error.message;
+                console.log(errorMessage);
             });
     };
     return (
