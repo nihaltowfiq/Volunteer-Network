@@ -1,0 +1,22 @@
+.bg-home{
+    position: relative;
+    overflow: hidden;
+  }
+  .bg-home main{
+    position: relative;
+    z-index: 2;
+  }
+  .bg-home:before{
+    content: ' ';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0.2;
+    background-image: url('../../images/backgroundImage.png');
+    background-repeat: no-repeat;
+    background-position: left top;
+  }

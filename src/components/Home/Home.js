@@ -1,14 +1,15 @@
 import React from 'react';
 import Events from '../Events/Events';
 import Header from '../Header/Header';
-// import fakeEvents from '../fakeEvents.json';
-
+import './Home.css';
 
 const Home = () => {
     return (
-        <div>
-            <Header></Header>
-            <Events></Events>
+        <div className="bg-home">
+            <main>
+                <Header></Header>
+                <Events></Events>
+            </main>
         </div>
     );
 };
