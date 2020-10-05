@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { Button, Container, Row } from 'react-bootstrap';
 import logo from '../../logos/logo.png';
 import googleIcon from '../../logos/google.png';
@@ -7,12 +7,11 @@ import * as firebase from "firebase/app";
 import "firebase/auth";
 import firebaseConfig from './firebase.config';
 import { UserContext } from '../../App';
-import { Link, useHistory, useLocation, useParams } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 
 const Login = () => {
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
 
-    
     const history = useHistory();
     const location = useLocation();
 

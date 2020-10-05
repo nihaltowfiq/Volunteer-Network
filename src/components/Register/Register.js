@@ -72,7 +72,7 @@ const Register = () => {
                     </Form.Group>
                     <Form.Group controlId="date">
                         <Form.Label>Date</Form.Label>
-                        <Form.Control required onChange={handleDate} type="date" placeholder="Enter email" />
+                        <Form.Control required onChange={handleDate} name="date" type="date" placeholder="Enter email" />
                     </Form.Group>
                     <Form.Group controlId="description">
                         <Form.Label>Description</Form.Label>

@@ -18,10 +18,10 @@ const EnrolledEvents = () => {
         fetch(`https://protected-tundra-04342.herokuapp.com/delete/${id}`, {
             method: 'DELETE'
         })
-        .then(res => res.json())
-        .then(result => {
-            console.log(result);
-        })
+            .then(res => res.json())
+            .then(result => {
+                console.log(result);
+            })
     };
     const history = useHistory()
     const navEvents = () => {
