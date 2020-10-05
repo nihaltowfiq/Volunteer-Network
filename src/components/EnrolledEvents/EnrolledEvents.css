@@ -2,11 +2,15 @@
     padding: 10px;
     border: 1px solid lightgray;
     border-radius: 5px;
+    background-color: white;
 }
 .event-card img{
     width: 250px;
     height: 200px;
 }
+.event-card h3 h6 {
+    font-weight: 800;
+}
 .event-card button{
-    margin: 100px 0 0 150px;
+    margin: 55px 0 0 150px;
 }

@@ -1,58 +1,69 @@
-import React, { useContext } from 'react';
-import { Col, Container, Nav, Navbar, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { Button, Col, Container, Nav, Navbar, Row } from 'react-bootstrap';
+import { Link, useHistory } from 'react-router-dom';
 import { UserContext } from '../../App';
 import './EnrolledEvents.css';
 import logo from '../../logos/logo.png';
-import image from '../../images/extraVolunteer.png';
 
 
 const EnrolledEvents = () => {
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+    const [events, setEvents] = useState([]);
+    useEffect(() => {
+        fetch(`https://protected-tundra-04342.herokuapp.com/enrolledEvents?email=${loggedInUser.email}`)
+            .then(res => res.json())
+            .then(data => setEvents(data))
+    }, []);
+    const handleCancel = (event, id) => {
+        fetch(`https://protected-tundra-04342.herokuapp.com/delete/${id}`, {
+            method: 'DELETE'
+        })
+        .then(res => res.json())
+        .then(result => {
+            console.log(result);
+        })
+    };
+    const history = useHistory()
+    const navEvents = () => {
+        history.push('/events')
+    }
+    const navHome = () => {
+        history.push('/home')
+    }
     return (
         <Container>
             <Navbar bg="none" variant="light" className="mb-5">
                 <Navbar.Brand><Link to="/home"><img src={logo} alt="" /></Link></Navbar.Brand>
                 <Nav className="ml-auto header-nav">
-                    <Nav.Link><Link to="/home">Home</Link></Nav.Link>
-                    <Nav.Link><Link to="">Donation</Link></Nav.Link>
-                    <Nav.Link><Link to="">Events</Link></Nav.Link>
-                    <Nav.Link><Link to="">Blogs</Link></Nav.Link>
+                    <Nav.Link onClick={navHome}>Home</Nav.Link>
+                    <Nav.Link>Donation</Nav.Link>
+                    <Nav.Link onClick={navEvents}>Events</Nav.Link>
+                    <Nav.Link>Blogs</Nav.Link>
                     {
                         loggedInUser && <Nav.Link style={{ fontWeight: "700", color: "black" }}>{loggedInUser.name}</Nav.Link>
                     }
                 </Nav>
             </Navbar>
-            <h1>This is Events</h1>
+            <h4>You are registered in {events.length} events.</h4>
             <Row>
-                <Col md={6} >
-                    <Row className="event-card mx-2">
-                        <Col sm={6}>
-                            <img src={image} alt="" />
+                {
+                    events.map(event =>
+                        <Col key={event._id} sm={6} >
+                            <Row className="event-card mx-2 my-3">
+                                <Col sm={6}>
+                                    <img src={event.img} alt="" />
+                                </Col>
+                                <Col sm={6}>
+                                    <div className="ml-2">
+                                        <h3>{event.event}</h3>
+                                        <h6>{new Date(event.date).toDateString('dd/MM/yyyy')}</h6>
+                                        <Button onClick={() => handleCancel(event, `${event._id}`)} variant="outline-danger">Cancel</Button>
+                                    </div>
+                                </Col>
+                            </Row>
                         </Col>
-                        <Col sm={6}>
-                            <div>
-                                <h3>This is inside</h3>
-                                <h5>05,sep, 2020</h5>
-                                <button>Cancel</button>
-                            </div>
-                        </Col>
-                    </Row>
-                </Col>
-                <Col md={6}>
-                    <Row className="event-card mx-2">
-                        <Col sm={6}>
-                            <img src={image} alt="" />
-                        </Col>
-                        <Col sm={6}>
-                            <div>
-                                <h3>This is inside</h3>
-                                <h5>05,sep, 2020</h5>
-                                <button>Cancel</button>
-                            </div>
-                        </Col>
-                    </Row>
-                </Col>
+                    )
+                }
             </Row>
         </Container>
     );

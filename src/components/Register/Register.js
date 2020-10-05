@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Button, Container, Form, Row } from 'react-bootstrap';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import { UserContext } from '../../App';
 import logo from '../../logos/logo.png';
 import './Register.css';
@@ -14,18 +14,45 @@ const Register = () => {
     useEffect(() => {
         setEvents(fakeEvents)
     }, []);
+    const event = events.find(event => event.id === parseInt(id)) || {};
 
-    const eventData = events.find(event => event.id === parseInt(id)) || {};
+    const history = useHistory();
+    const [selectedDate, setSelectedDate] = useState({date: ''});
+    const handleDate = e => {
+        const newDate = {...selectedDate}
+        newDate[e.target.name] = e.target.value;
+        setSelectedDate(newDate)
+    };
 
     const [validated, setValidated] = useState(false);
-    const handleSubmit = (event) => {
-        const form = event.currentTarget;
+    const handleSubmit = (e) => {
+        const form = e.currentTarget;
         if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
+            e.preventDefault();
+            e.stopPropagation();
         }
-
+        if(form.checkValidity() === true){
+            const registeredData = {
+                id: event.id,
+                name: loggedInUser.name,
+                email: loggedInUser.email,
+                event: event.name,
+                description: event.details,
+                img: event.img,
+                date: selectedDate.date
+            }
+            console.log(registeredData);
+            fetch('https://protected-tundra-04342.herokuapp.com/registeredUser', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(registeredData)
+            })
+            .then(res => res.json)
+            .then(data => console.log(data));
+            history.push('/events');
+        }
         setValidated(true);
+        e.preventDefault();
     };
     return (
         <Container>
@@ -37,26 +64,26 @@ const Register = () => {
                     <h3 className="mb-3">Register as a Volunteer</h3>
                     <Form.Group controlId="name">
                         <Form.Label>Full Name</Form.Label>
-                        <Form.Control required type="name" placeholder="Enter name" value={loggedInUser.name} />
+                        <Form.Control required readOnly type="text" placeholder="Enter name" value={loggedInUser.name} />
                     </Form.Group>
                     <Form.Group controlId="email">
                         <Form.Label>Email</Form.Label>
-                        <Form.Control required type="email" placeholder="Email" value={loggedInUser.email} />
+                        <Form.Control required readOnly type="email" placeholder="Email" value={loggedInUser.email} />
                     </Form.Group>
                     <Form.Group controlId="date">
                         <Form.Label>Date</Form.Label>
-                        <Form.Control required type="date" placeholder="Enter email" />
+                        <Form.Control required onChange={handleDate} type="date" placeholder="Enter email" />
                     </Form.Group>
                     <Form.Group controlId="description">
                         <Form.Label>Description</Form.Label>
-                        <Form.Control required type="text" placeholder="Description" />
+                        <Form.Control required readOnly type="text" placeholder="Description" value={event.details} />
                     </Form.Group>
                     <Form.Group controlId="event">
                         <Form.Label>Event</Form.Label>
-                        <Form.Control required type="text" placeholder="Event" value={eventData.name}/>
+                        <Form.Control required readOnly type="text" placeholder="Event" value={event.name}/>
                     </Form.Group>
                     <Button className="form-control" variant="primary" type="submit">
-                        Submit
+                        Registration
                     </Button>
                 </Form>
             </Row>

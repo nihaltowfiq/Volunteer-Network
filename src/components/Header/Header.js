@@ -1,18 +1,25 @@
 import React from 'react';
 import { Button, Container, FormControl, InputGroup, Nav, Navbar, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import logo from '../../logos/logo.png';
 import './Header.css';
 
 const Header = () => {
+    const history = useHistory()
+    const navEvents = () => {
+        history.push('/events')
+    }
+    const navHome = () => {
+        history.push('/home')
+    }
     return (
         <Container>
             <Navbar bg="none" variant="light">
                 <Navbar.Brand><Link to="/home"><img src={logo} alt="" /></Link></Navbar.Brand>
                 <Nav className="ml-auto header-nav">
-                    <Link to='/link'><Nav.Link>Home</Nav.Link></Link>
+                    <Nav.Link onClick={navHome}>Home</Nav.Link>
                     <Nav.Link>Donation</Nav.Link>
-                    <Nav.Link><Link to="/events">Events</Link></Nav.Link>
+                    <Nav.Link onClick={navEvents}>Events</Nav.Link>
                     <Nav.Link>Blogs</Nav.Link>
                     <Button className="mr-2" variant="outline-primary">Register</Button>
                     <Button variant="outline-info">Admin</Button>

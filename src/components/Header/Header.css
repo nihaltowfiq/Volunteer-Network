@@ -3,9 +3,11 @@ img{
 }
 .header-nav{
     font-size: 20px;
-    color: black;
-    text-decoration: none;
-    font-style: none;
+    font-weight: 600;
+}
+.header-nav button{
+    font-size: 20px;
+    font-weight: 600;
 }
 .search-bar{
     width: 500px;
