@@ -12,6 +12,9 @@ const Header = () => {
     const navHome = () => {
         history.push('/home')
     }
+    const handleAdmin = () => {
+        history.push('/admin/registerdList')
+    }
     return (
         <Container>
             <Navbar bg="none" variant="light">
@@ -22,7 +25,7 @@ const Header = () => {
                     <Nav.Link onClick={navEvents}>Events</Nav.Link>
                     <Nav.Link>Blogs</Nav.Link>
                     <Button className="mr-2" variant="outline-primary">Register</Button>
-                    <Button variant="outline-info">Admin</Button>
+                    <Button onClick={handleAdmin} variant="outline-info">Admin</Button>
                 </Nav>
             </Navbar>
             

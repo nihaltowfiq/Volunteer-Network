@@ -14,13 +14,17 @@ const EnrolledEvents = () => {
             .then(res => res.json())
             .then(data => setEvents(data))
     }, []);
-    const handleCancel = (event, id) => {
+    const handleCancel = (id) => {
         fetch(`https://protected-tundra-04342.herokuapp.com/delete/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())
             .then(result => {
                 console.log(result);
+                if(result){
+                    const data = events.filter(data => data._id != id);
+                    setEvents(data);
+                }
             })
     };
     const history = useHistory()
@@ -57,7 +61,7 @@ const EnrolledEvents = () => {
                                     <div className="ml-2">
                                         <h3>{event.event}</h3>
                                         <h6>{new Date(event.date).toDateString('dd/MM/yyyy')}</h6>
-                                        <Button onClick={() => handleCancel(event, `${event._id}`)} variant="outline-danger">Cancel</Button>
+                                        <Button onClick={() => handleCancel(`${event._id}`)} variant="outline-danger">Cancel</Button>
                                     </div>
                                 </Col>
                             </Row>

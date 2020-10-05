@@ -23,7 +23,7 @@ const Register = () => {
         newDate[e.target.name] = e.target.value;
         setSelectedDate(newDate)
     };
-
+    
     const [validated, setValidated] = useState(false);
     const handleSubmit = (e) => {
         const form = e.currentTarget;
@@ -41,15 +41,14 @@ const Register = () => {
                 img: event.img,
                 date: selectedDate.date
             }
-            console.log(registeredData);
             fetch('https://protected-tundra-04342.herokuapp.com/registeredUser', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(registeredData)
             })
             .then(res => res.json)
-            .then(data => console.log(data));
-            history.push('/events');
+            .then(data => history.push('/events'));
+            
         }
         setValidated(true);
         e.preventDefault();
