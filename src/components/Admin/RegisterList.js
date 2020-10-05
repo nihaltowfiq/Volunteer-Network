@@ -19,9 +19,8 @@ const RegisterList = () => {
         })
             .then(res => res.json())
             .then(result => {
-                console.log(result);
                 if(result){
-                    const data = usersInfo.filter(data => data._id != id);
+                    const data = usersInfo.filter(data => data._id !== id);
                     setUsersInfo(data);
                 }
             })

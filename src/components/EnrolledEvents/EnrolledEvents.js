@@ -20,9 +20,8 @@ const EnrolledEvents = () => {
         })
             .then(res => res.json())
             .then(result => {
-                console.log(result);
                 if(result){
-                    const data = events.filter(data => data._id != id);
+                    const data = events.filter(data => data._id !== id);
                     setEvents(data);
                 }
             })
