@@ -9,7 +9,7 @@ import removeIcon from '../../logos/trash.png';
 const RegisterList = () => {
     const [usersInfo, setUsersInfo] = useState([])
     useEffect(() => {
-        fetch('http://localhost:5500/allUsers')
+        fetch('https://protected-tundra-04342.herokuapp.com/allUsers')
             .then(res => res.json())
             .then(data => setUsersInfo(data))
     }, []);

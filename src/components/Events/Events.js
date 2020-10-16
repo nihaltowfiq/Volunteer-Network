@@ -4,6 +4,8 @@ import './Events.css';
 import { useHistory } from 'react-router-dom';
 import fakeEvents from '../fakeEvents';
 
+// const colors = ['primary', 'success', 'danger', 'warning', 'info'];
+
 const Events = () => {
     const [events, setEvents] = useState([]);
     useEffect(() => {
@@ -21,7 +23,7 @@ const Events = () => {
                         <Col key={event.id} sm={3}>
                             <Card onClick={() => handleEvent(event.id)} className="bg-primary mb-4 card-style">
                                 <Card.Img src={event.img} alt="image" />
-                                <Card.Title >{event.name}</Card.Title>
+                                <Card.Title>{event.name}</Card.Title>
                             </Card>
                         </Col>
                     )
